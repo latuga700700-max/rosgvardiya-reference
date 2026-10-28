@@ -1,3 +1,4 @@
+
 package ru.rosgvardiya.reference;
 
 import android.app.Activity;
@@ -5,7 +6,7 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebViewAssetLoader;
+import androidx.webkit.WebViewAssetLoader;
 
 public class MainActivity extends Activity {
     @Override
