@@ -361,25 +361,29 @@ function showLoadError(message){
   $("tiles").innerHTML=`<div class="empty">${esc(message)}</div>`;
   $("count").textContent="База не загружена";
 }
-
 /* Загружаем локальную базу справочника */
 async function loadDatabase(){
   try{
-const response = await fetch("data.json");
-if (!response.ok) throw new Error("Не удалось загрузить data.json: " + response.status);
-    const data=await response.json();
+    const response = await fetch("data.json");
+    if(!response.ok){
+      throw new Error("Не удалось загрузить data.json: " + response.status);
+    }
 
-    if(!data||!Array.isArray(data.cards)){
+    const data = await response.json();
+
+    if(!data || !Array.isArray(data.cards)){
       throw new Error("Неверный формат data.json");
     }
 
-    db=data;
+    db = data;
     renderTiles();
     renderRecent();
     renderQuick();
   }catch(error){
-    console.error("Ошибка загрузки базы:",error);
-    showLoadError("Не удалось загрузить базу справочника. Проверьте файл data.json и настройки Android-приложения.");
+    console.error("Ошибка загрузки базы:", error);
+    showLoadError(
+      "Не удалось загрузить базу справочника. Проверьте файл data.json."
+    );
   }
 }
 
