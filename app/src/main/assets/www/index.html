@@ -365,11 +365,8 @@ function showLoadError(message){
 /* Загружаем локальную базу справочника */
 async function loadDatabase(){
   try{
-    const response=await fetch("data.json");
-    if(!response.ok){
-      throw new Error("HTTP "+response.status);
-    }
-
+const response = await fetch("data.json");
+if (!response.ok) throw new Error("Не удалось загрузить data.json: " + response.status);
     const data=await response.json();
 
     if(!data||!Array.isArray(data.cards)){
