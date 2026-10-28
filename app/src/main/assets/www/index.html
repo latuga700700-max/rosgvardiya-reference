@@ -1,50 +1,476 @@
+
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#7d1727"><title>Росгвардия — справочник</title>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#7d1727">
+<title>Росгвардия — справочник</title>
 <style>
 :root{--maroon:#7d1727;--maroon2:#a32331;--gold:#e7c879;--bg:#0b0e10;--panel:#171b1f;--panel2:#20252a;--text:#f4f1ee;--muted:#b9b8ba;--line:#3b3e42}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#241317 0,#0b0e10 48rem);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-button,input{font:inherit}button{cursor:pointer}.shell{max-width:1050px;margin:auto;padding:14px 16px 92px}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#241317 0,#0b0e10 48rem);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}
+button{cursor:pointer;touch-action:manipulation}
+.shell{max-width:1050px;margin:auto;padding:14px 16px 100px}
 .hero{position:relative;overflow:hidden;border:1px solid #70222c;border-radius:22px;padding:20px;background:linear-gradient(110deg,rgba(112,17,32,.97),rgba(48,16,22,.96) 58%,rgba(20,22,24,.98)),url('assets/academy-emblem.png') right center/auto 115% no-repeat;box-shadow:0 16px 44px #0008}
-.hero-top{display:flex;align-items:center;gap:15px}.emblem{width:88px;height:118px;object-fit:contain;filter:drop-shadow(0 5px 8px #0007);flex-shrink:0}.brand{min-width:0}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#f0d8c5;line-height:1.6}.brand h1{font-size:clamp(28px,5vw,50px);line-height:.98;margin:8px 0 10px;font-weight:850;letter-spacing:1px}.subtitle{font-size:12px;letter-spacing:3px;color:#e8d4ce}.motto{border-top:1px solid #d9b7a34f;margin-top:18px;padding-top:12px;color:#f1d9a0;font-size:11px;letter-spacing:4px;text-align:center}
-.searchbar{display:flex;gap:10px;margin:18px 0 12px}.searchwrap{flex:1;display:flex;align-items:center;gap:10px;background:#17191c;border:1px solid #712532;border-radius:15px;padding:0 15px}.searchwrap span{font-size:24px;color:#e9d3b7}.searchwrap input{min-width:0;width:100%;border:0;outline:0;color:white;background:transparent;padding:16px 0}.searchwrap input::placeholder{color:#a9a8aa}.filterbtn{background:var(--maroon);border:1px solid #9d3543;color:white;border-radius:15px;padding:0 18px;font-size:20px}
-.quickstats{display:flex;gap:8px;overflow:auto;padding:3px 0 12px}.pill{white-space:nowrap;border:1px solid #4b3a3d;background:#171719;border-radius:999px;padding:8px 12px;color:#d7d1d1;font-size:12px}.pill.active{background:#70202c;border-color:#c25b68;color:#fff}
-.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:17px 2px 12px}.sectionhead h2{font-size:18px;margin:0}.sectionhead small{color:var(--muted)}
-.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tile{position:relative;min-height:155px;overflow:hidden;border:1px solid #454044;border-radius:18px;background:linear-gradient(120deg,#541823,#171a1d);text-align:left;color:white;padding:16px;display:flex;flex-direction:column;justify-content:space-between;isolation:isolate}.tile:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(99,16,31,.9),rgba(15,18,20,.76));z-index:-1}.tile:after{content:"";position:absolute;right:-18px;bottom:-14px;width:130px;height:130px;background:var(--tile-image) center/cover no-repeat;opacity:.45;z-index:-2;mask-image:linear-gradient(90deg,transparent,#000)}.tile .ico{width:42px;height:42px;border:1px solid #ead5b4;border-radius:13px;display:grid;place-items:center;color:#f5e1bc;font-size:22px}.tile strong{font-size:17px;line-height:1.12;letter-spacing:.3px}.tile small{font-size:12px;color:#ded7d5;margin-top:6px;line-height:1.35}.tile:active{transform:scale(.99)}
-.list{display:grid;gap:9px}.cardrow{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid #33383d;border-radius:14px;padding:10px;text-align:left;color:var(--text);width:100%}.thumb{width:68px;height:68px;object-fit:cover;border-radius:10px;background:#25292d;flex-shrink:0}.cardcopy{flex:1;min-width:0}.cardcopy strong{display:block;font-size:14px;line-height:1.3}.cardcopy small{display:block;color:var(--muted);margin-top:5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.star{color:var(--gold);font-size:20px;padding:8px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#101315ed;border-top:1px solid #363a3d;backdrop-filter:blur(14px);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:5}.nav{width:min(900px,100%);display:flex;justify-content:space-around}.nav button{background:transparent;border:0;color:#aeb1b5;min-width:0;padding:5px 9px;border-radius:12px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px}.nav button span{font-size:22px}.nav button.active{background:#521520;color:#fff}
-.overlay{position:fixed;inset:0;background:#000a;z-index:10;display:none;align-items:flex-end;justify-content:center}.overlay.show{display:flex}.detail{background:#141719;border:1px solid #4d3a3e;border-radius:22px 22px 0 0;width:min(900px,100%);max-height:90vh;overflow:auto;padding:20px}.detailhead{display:flex;gap:12px;align-items:start}.detail h2{margin:0;font-size:22px}.close{margin-left:auto;background:#303438;color:white;border:0;border-radius:10px;padding:8px 12px}.detail .body{white-space:pre-wrap;line-height:1.6;color:#e5e2e0;font-size:15px}.detail .summary{color:#e6c9a6;font-weight:600;line-height:1.5}.detail img{max-width:100%;max-height:250px;object-fit:contain;border-radius:12px;margin:15px 0}.empty{padding:26px;text-align:center;color:var(--muted)}.hide{display:none!important}
+.hero-top{display:flex;align-items:center;gap:15px}
+.emblem{width:88px;height:118px;object-fit:contain;filter:drop-shadow(0 5px 8px #0007);flex-shrink:0}
+.brand{min-width:0}
+.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#f0d8c5;line-height:1.6}
+.brand h1{font-size:clamp(28px,5vw,50px);line-height:.98;margin:8px 0 10px;font-weight:850;letter-spacing:1px}
+.subtitle{font-size:12px;letter-spacing:3px;color:#e8d4ce}
+.motto{border-top:1px solid #d9b7a34f;margin-top:18px;padding-top:12px;color:#f1d9a0;font-size:11px;letter-spacing:4px;text-align:center}
+.searchbar{display:flex;gap:10px;margin:18px 0 12px}
+.searchwrap{flex:1;display:flex;align-items:center;gap:10px;background:#17191c;border:1px solid #712532;border-radius:15px;padding:0 15px;min-width:0}
+.searchwrap span{font-size:24px;color:#e9d3b7}
+.searchwrap input{min-width:0;width:100%;border:0;outline:0;color:white;background:transparent;padding:16px 0}
+.searchwrap input::placeholder{color:#a9a8aa}
+.filterbtn{background:var(--maroon);border:1px solid #9d3543;color:white;border-radius:15px;padding:0 18px;font-size:20px}
+.quickstats{display:flex;gap:8px;overflow:auto;padding:3px 0 12px}
+.pill{white-space:nowrap;border:1px solid #4b3a3d;background:#171719;border-radius:999px;padding:8px 12px;color:#d7d1d1;font-size:12px}
+.pill.active{background:#70202c;border-color:#c25b68;color:#fff}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:17px 2px 12px}
+.sectionhead h2{font-size:18px;margin:0}
+.sectionhead small{color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tile{position:relative;min-height:155px;overflow:hidden;border:1px solid #454044;border-radius:18px;background:linear-gradient(120deg,#541823,#171a1d);text-align:left;color:white;padding:16px;display:flex;flex-direction:column;justify-content:space-between;isolation:isolate}
+.tile:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(99,16,31,.9),rgba(15,18,20,.76));z-index:-1}
+.tile:after{content:"";position:absolute;right:-18px;bottom:-14px;width:130px;height:130px;background:var(--tile-image) center/cover no-repeat;opacity:.45;z-index:-2;mask-image:linear-gradient(90deg,transparent,#000)}
+.tile .ico{width:42px;height:42px;border:1px solid #ead5b4;border-radius:13px;display:grid;place-items:center;color:#f5e1bc;font-size:22px}
+.tile strong{font-size:17px;line-height:1.12;letter-spacing:.3px}
+.tile small{font-size:12px;color:#ded7d5;margin-top:6px;line-height:1.35}
+.tile:active{transform:scale(.99)}
+.list{display:grid;gap:9px}
+.cardrow{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid #33383d;border-radius:14px;padding:10px;text-align:left;color:var(--text);width:100%;min-width:0}
+.thumb{width:68px;height:68px;object-fit:cover;border-radius:10px;background:#25292d;flex-shrink:0}
+.cardcopy{flex:1;min-width:0}
+.cardcopy strong{display:block;font-size:14px;line-height:1.3}
+.cardcopy small{display:block;color:var(--muted);margin-top:5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.star{color:var(--gold);font-size:20px;padding:8px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#101315ed;border-top:1px solid #363a3d;backdrop-filter:blur(14px);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:5}
+.nav{width:min(900px,100%);display:flex;justify-content:space-around}
+.nav button{background:transparent;border:0;color:#aeb1b5;min-width:0;padding:5px 9px;border-radius:12px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.nav button span{font-size:22px}
+.nav button.active{background:#521520;color:#fff}
+.overlay{position:fixed;inset:0;background:#000a;z-index:10;display:none;align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.detail{background:#141719;border:1px solid #4d3a3e;border-radius:22px 22px 0 0;width:min(900px,100%);max-height:90vh;overflow:auto;padding:20px}
+.detailhead{display:flex;gap:12px;align-items:start}
+.detail h2{margin:0;font-size:22px}
+.close{margin-left:auto;background:#303438;color:white;border:0;border-radius:10px;padding:8px 12px}
+.detail .body{white-space:pre-wrap;line-height:1.6;color:#e5e2e0;font-size:15px}
+.detail .summary{color:#e6c9a6;font-weight:600;line-height:1.5}
+.detail img{max-width:100%;max-height:250px;object-fit:contain;border-radius:12px;margin:15px 0}
+.empty{padding:26px;text-align:center;color:var(--muted)}
+.hide{display:none!important}
 @media(min-width:700px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:26px 30px}.emblem{width:105px;height:135px}.tile{min-height:180px}.list{grid-template-columns:repeat(2,minmax(0,1fr))}}
-</style></head><body><main class="shell">
-<header class="hero"><div class="hero-top"><img class="emblem" src="assets/academy-emblem.png" alt="Эмблема академии"><div class="brand"><div class="eyebrow">Военная ордена Жукова академия<br>войск национальной гвардии РФ</div><h1>РОСГВАРДИЯ</h1><div class="subtitle">СПРАВОЧНИК ВОЕННОСЛУЖАЩЕГО</div></div></div><div class="motto">ВСЕГДА НА СТРАЖЕ</div></header>
-<div class="searchbar"><label class="searchwrap"><span>⌕</span><input id="search" placeholder="Поиск по справочнику…" autocomplete="off"></label><button class="filterbtn" id="filter" aria-label="Показать все материалы">☷</button></div>
+@media(max-width:380px){.shell{padding-left:10px;padding-right:10px}.hero{padding:15px}.hero-top{gap:10px}.emblem{width:65px;height:90px}.subtitle{font-size:10px;letter-spacing:1px}.brand h1{font-size:27px}.nav button{padding:5px 4px;font-size:10px}.nav button span{font-size:20px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="hero">
+<div class="hero-top">
+<img class="emblem" src="assets/academy-emblem.png" alt="Эмблема академии">
+<div class="brand">
+<div class="eyebrow">Военная ордена Жукова академия<br>войск национальной гвардии РФ</div>
+<h1>РОСГВАРДИЯ</h1>
+<div class="subtitle">СПРАВОЧНИК ВОЕННОСЛУЖАЩЕГО</div>
+</div>
+</div>
+<div class="motto">ВСЕГДА НА СТРАЖЕ</div>
+</header>
+
+<div class="searchbar">
+<label class="searchwrap"><span>⌕</span><input id="search" placeholder="Поиск по справочнику…" autocomplete="off"></label>
+<button class="filterbtn" id="filter" aria-label="Показать все материалы">☷</button>
+</div>
+
 <div class="quickstats" id="quick"></div>
-<section id="home"><div class="sectionhead"><h2>Разделы справочника</h2><small id="count"></small></div><div class="tiles" id="tiles"></div><div class="sectionhead"><h2>Недавно просмотренные</h2><small>Быстрый доступ</small></div><div class="list" id="recent"></div></section>
-<section id="results" class="hide"><div class="sectionhead"><h2 id="resulttitle">Материалы</h2><small id="resultcount"></small></div><div class="list" id="cards"></div></section>
+
+<section id="home">
+<div class="sectionhead"><h2>Разделы справочника</h2><small id="count"></small></div>
+<div class="tiles" id="tiles"></div>
+<div class="sectionhead"><h2>Недавно просмотренные</h2><small>Быстрый доступ</small></div>
+<div class="list" id="recent"></div>
+</section>
+
+<section id="results" class="hide">
+<div class="sectionhead"><h2 id="resulttitle">Материалы</h2><small id="resultcount"></small></div>
+<div class="list" id="cards"></div>
+</section>
 </main>
-<nav class="bottom"><div class="nav"><button data-tab="home" class="active"><span>⌂</span>Главная</button><button data-tab="categories"><span>▦</span>Категории</button><button data-tab="search"><span>⌕</span>Поиск</button><button data-tab="favorites"><span>☆</span>Избранное</button><button data-tab="history"><span>◷</span>История</button></div></nav>
-<div class="overlay" id="overlay"><article class="detail"><div class="detailhead"><div><h2 id="dtitle"></h2><div id="dmeta" class="eyebrow"></div></div><button class="close" id="close">Закрыть ✕</button></div><img id="dimg" class="hide" alt=""><p id="dsummary" class="summary"></p><div id="dbody" class="body"></div><p><button class="filterbtn" id="dfav">☆ В избранное</button></p></article></div>
+
+<nav class="bottom">
+<div class="nav">
+<button data-tab="home" class="active"><span>⌂</span>Главная</button>
+<button data-tab="categories"><span>▦</span>Категории</button>
+<button data-tab="search"><span>⌕</span>Поиск</button>
+<button data-tab="favorites"><span>☆</span>Избранное</button>
+<button data-tab="history"><span>◷</span>История</button>
+</div>
+</nav>
+
+<div class="overlay" id="overlay">
+<article class="detail">
+<div class="detailhead">
+<div><h2 id="dtitle"></h2><div id="dmeta" class="eyebrow"></div></div>
+<button class="close" id="close">Закрыть ✕</button>
+</div>
+<img id="dimg" class="hide" alt="">
+<p id="dsummary" class="summary"></p>
+<div id="dbody" class="body"></div>
+<p><button class="filterbtn" id="dfav">☆ В избранное</button></p>
+</article>
+</div>
+
 <script>
-const labels={AMMUNITION:"Боеприпасы",MEDICINE:"Медицина",ATGM:"ПТРК",SVO:"Материалы по СВО"};
-const icons={AMMUNITION:"▥",MEDICINE:"✚",ATGM:"➤",SVO:"⌖"};
-const desc={AMMUNITION:"Справочные материалы и категории",MEDICINE:"Медицинские материалы",ATGM:"Противотанковые ракетные комплексы",SVO:"Материалы и публикации"};
-let db={cards:[],categories:[]}, favorites=new Set(JSON.parse(localStorage.getItem("rg-favs")||"[]")), history=JSON.parse(localStorage.getItem("rg-history")||"[]"), activeSection="ALL", currentCard=null;
+"use strict";
+
+const labels={
+  AMMUNITION:"Боеприпасы",
+  MEDICINE:"Медицина",
+  ATGM:"ПТРК",
+  SVO:"Материалы по СВО"
+};
+
+const icons={
+  AMMUNITION:"▥",
+  MEDICINE:"✚",
+  ATGM:"➤",
+  SVO:"⌖"
+};
+
+const desc={
+  AMMUNITION:"Справочные материалы и категории",
+  MEDICINE:"Медицинские материалы",
+  ATGM:"Противотанковые ракетные комплексы",
+  SVO:"Материалы и публикации"
+};
+
+function readStorage(key,fallback){
+  try{
+    const value=localStorage.getItem(key);
+    return value===null?fallback:JSON.parse(value);
+  }catch(error){
+    return fallback;
+  }
+}
+
+let db={cards:[],categories:[]};
+let favorites=new Set(readStorage("rg-favs",[]));
+let history=readStorage("rg-history",[]);
+let activeSection="ALL";
+let currentCard=null;
+
 const $=id=>document.getElementById(id);
-function assetPath(path){return path ? "assets/"+path.replace(/^\\/+/, "") : ""}
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function short(s,n=125){s=String(s||"");return s.length>n?s.slice(0,n)+"…":s}
-function save(){localStorage.setItem("rg-favs",JSON.stringify([...favorites]));localStorage.setItem("rg-history",JSON.stringify(history.slice(0,30)))}
-function cardButton(c){return `<button class="cardrow" data-card="${esc(c.id)}"><img class="thumb" loading="lazy" src="${esc(assetPath(c.thumbnailPath))}" onerror="this.style.visibility='hidden'"><span class="cardcopy"><strong>${esc(c.title)}</strong><small>${esc(short(c.summary))}</small></span><span class="star" data-star="${esc(c.id)}">${favorites.has(c.id)?"★":"☆"}</span></button>`}
-function showCard(id){const c=db.cards.find(x=>x.id===id);if(!c)return;currentCard=c;history=[id,...history.filter(x=>x!==id)].slice(0,30);save();$("dtitle").textContent=c.title;$("dmeta").textContent=(labels[c.section]||c.section)+" · "+(c.categoryId||"");$("dsummary").textContent=c.summary||"";$("dbody").textContent=c.body||"";let path=assetPath(c.thumbnailPath);$("dimg").src=path;$("dimg").classList.toggle("hide",!c.thumbnailPath);$("dfav").textContent=(favorites.has(id)?"★ В избранном":"☆ В избранное");$("overlay").classList.add("show")}
-function toggleFav(id){favorites.has(id)?favorites.delete(id):favorites.add(id);save();renderTiles();if(!$("results").classList.contains("hide"))renderResults();if(currentCard&&currentCard.id===id)$("dfav").textContent=(favorites.has(id)?"★ В избранном":"☆ В избранное")}
-function renderTiles(){const sections=["MEDICINE","AMMUNITION","ATGM","SVO"];const extra=[{id:"ALL",name:"Справочник",ico:"▤",desc:"Все справочные материалы"},{id:"FAV",name:"Избранное",ico:"☆",desc:"Сохранённые материалы"}];let arr=sections.map(s=>({id:s,name:labels[s],ico:icons[s],desc:desc[s]})).concat(extra);$("tiles").innerHTML=arr.map(x=>{let first=db.cards.find(c=>c.section===x.id&&c.thumbnailPath);let bg=first?`url('${assetPath(first.thumbnailPath)}')`:"none";return `<button class="tile" data-section="${x.id}" style="--tile-image:${bg}"><span class="ico">${x.ico}</span><span><strong>${esc(x.name)}</strong><small>${esc(x.desc)}</small></span></button>`}).join("");$("count").textContent=db.cards.length.toLocaleString("ru-RU")+" карточек"}
-function renderResults(){let q=$("search").value.trim().toLocaleLowerCase("ru"),arr=db.cards.filter(c=>(activeSection==="ALL"||c.section===activeSection)&&(activeSection!=="FAV"||favorites.has(c.id))&&(!q||(c.title+" "+c.summary+" "+c.body+" "+c.tags).toLocaleLowerCase("ru").includes(q)));$("cards").innerHTML=arr.slice(0,400).map(cardButton).join("")||'<div class="empty">Ничего не найдено</div>';$("resultcount").textContent=arr.length.toLocaleString("ru-RU")+" материалов"}
-function openResults(section,title){activeSection=section;$("home").classList.add("hide");$("results").classList.remove("hide");$("resulttitle").textContent=title||labels[section]||"Материалы";renderResults()}
-function showHome(){activeSection="ALL";$("home").classList.remove("hide");$("results").classList.add("hide");$("search").value="";renderTiles();renderRecent()}
-function renderRecent(){let arr=history.map(id=>db.cards.find(c=>c.id===id)).filter(Boolean).slice(0,4);$("recent").innerHTML=arr.map(cardButton).join("")||'<div class="empty">Открытые материалы появятся здесь</div>'}
-function renderQuick(){let arr=[["ALL","Все"],["MEDICINE","Медицина"],["AMMUNITION","Боеприпасы"],["ATGM","ПТРК"],["SVO","Материалы по СВО"]];$("quick").innerHTML=arr.map(([s,t])=>`<button class="pill ${activeSection===s?"active":""}" data-section="${s}">${t}</button>`).join("")}
-fetch("data.json").then(r=>r.json()).then(d=>{db=d;renderTiles();renderRecent();renderQuick()}).catch(()=>{$("tiles").innerHTML='<div class="empty">Не удалось загрузить базу. Распакуйте весь архив и откройте index.html через локальный сервер или приложение-оболочку.</div>'});
-document.addEventListener("click",e=>{let card=e.target.closest("[data-card]");if(card){showCard(card.dataset.card);return}let tile=e.target.closest("[data-section]");if(tile){let s=tile.dataset.section;activeSection=s;renderQuick();openResults(s,s==="ALL"?"Все материалы":s==="FAV"?"Избранное":labels[s]||"Материалы");return}let tab=e.target.closest("[data-tab]");if(tab){document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b===tab));let t=tab.dataset.tab;if(t==="home")showHome();else if(t==="categories"){showHome();$("tiles").scrollIntoView({behavior:"smooth"})}else if(t==="search"){$("search").focus();openResults(activeSection,"Результаты поиска")}else if(t==="favorites")openResults("FAV","Избранное");else if(t==="history"){openResults("ALL","История просмотров");$("cards").innerHTML=history.map(id=>db.cards.find(c=>c.id===id)).filter(Boolean).map(cardButton).join("")||'<div class="empty">История пока пуста</div>'}renderQuick();return}});
-$("search").addEventListener("input",()=>{if(!$("results").classList.contains("hide"))renderResults();else if($("search").value.trim())openResults("ALL","Результаты поиска")});
-$("filter").addEventListener("click",()=>openResults("ALL","Все материалы"));$("close").addEventListener("click",()=>$("overlay").classList.remove("show"));$("overlay").addEventListener("click",e=>{if(e.target===$("overlay"))$("overlay").classList.remove("show")});$("dfav").addEventListener("click",()=>currentCard&&toggleFav(currentCard.id));
-</script></body></html>
+
+/* Исправленный путь к изображениям */
+function assetPath(path){
+  return path ? "assets/"+String(path).replace(/^\/+/, "") : "";
+}
+
+function esc(s){
+  return String(s??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+function short(s,n=125){
+  s=String(s||"");
+  return s.length>n?s.slice(0,n)+"…":s;
+}
+
+function save(){
+  try{
+    localStorage.setItem("rg-favs",JSON.stringify([...favorites]));
+    localStorage.setItem("rg-history",JSON.stringify(history.slice(0,30)));
+  }catch(error){
+    console.warn("Не удалось сохранить данные на устройстве",error);
+  }
+}
+
+function cardButton(c){
+  return `<button class="cardrow" data-card="${esc(c.id)}">
+    <img class="thumb" loading="lazy" src="${esc(assetPath(c.thumbnailPath))}" onerror="this.style.visibility='hidden'">
+    <span class="cardcopy">
+      <strong>${esc(c.title)}</strong>
+      <small>${esc(short(c.summary))}</small>
+    </span>
+    <span class="star" data-star="${esc(c.id)}">${favorites.has(c.id)?"★":"☆"}</span>
+  </button>`;
+}
+
+function showCard(id){
+  const c=db.cards.find(x=>String(x.id)===String(id));
+  if(!c)return;
+
+  currentCard=c;
+  history=[id,...history.filter(x=>String(x)!==String(id))].slice(0,30);
+  save();
+
+  $("dtitle").textContent=c.title||"Материал";
+  $("dmeta").textContent=(labels[c.section]||c.section||"Справочник")+" · "+(c.categoryId||"");
+  $("dsummary").textContent=c.summary||"";
+  $("dbody").textContent=c.body||"";
+
+  const path=assetPath(c.thumbnailPath);
+  $("dimg").onerror=()=>{$("dimg").classList.add("hide");};
+  if(path){
+    $("dimg").src=path;
+    $("dimg").classList.remove("hide");
+  }else{
+    $("dimg").removeAttribute("src");
+    $("dimg").classList.add("hide");
+  }
+
+  $("dfav").textContent=favorites.has(id)?"★ В избранном":"☆ В избранное";
+  $("overlay").classList.add("show");
+  renderRecent();
+}
+
+function toggleFav(id){
+  if(favorites.has(id)){
+    favorites.delete(id);
+  }else{
+    favorites.add(id);
+  }
+
+  save();
+  renderTiles();
+
+  if(!$("results").classList.contains("hide")){
+    renderResults();
+  }
+
+  if(currentCard&&String(currentCard.id)===String(id)){
+    $("dfav").textContent=favorites.has(id)?"★ В избранном":"☆ В избранное";
+  }
+}
+
+function renderTiles(){
+  const sections=["MEDICINE","AMMUNITION","ATGM","SVO"];
+  const extra=[
+    {id:"ALL",name:"Справочник",ico:"▤",desc:"Все справочные материалы"},
+    {id:"FAV",name:"Избранное",ico:"☆",desc:"Сохранённые материалы"}
+  ];
+
+  const arr=sections.map(s=>({
+    id:s,
+    name:labels[s],
+    ico:icons[s],
+    desc:desc[s]
+  })).concat(extra);
+
+  $("tiles").innerHTML=arr.map(x=>{
+    const first=db.cards.find(c=>c.section===x.id&&c.thumbnailPath);
+    const bg=first?`url('${assetPath(first.thumbnailPath)}')`:"none";
+
+    return `<button class="tile" data-section="${x.id}" style="--tile-image:${bg}">
+      <span class="ico">${x.ico}</span>
+      <span><strong>${esc(x.name)}</strong><small>${esc(x.desc)}</small></span>
+    </button>`;
+  }).join("");
+
+  $("count").textContent=db.cards.length.toLocaleString("ru-RU")+" карточек";
+}
+
+function renderResults(){
+  const q=$("search").value.trim().toLocaleLowerCase("ru");
+
+  const arr=db.cards.filter(c=>{
+    const sectionMatch=activeSection==="ALL"||c.section===activeSection;
+    const favMatch=activeSection!=="FAV"||favorites.has(c.id);
+    const text=[c.title,c.summary,c.body,Array.isArray(c.tags)?c.tags.join(" "):c.tags]
+      .join(" ")
+      .toLocaleLowerCase("ru");
+    return sectionMatch&&favMatch&&(!q||text.includes(q));
+  });
+
+  $("cards").innerHTML=arr.slice(0,400).map(cardButton).join("")
+    ||'<div class="empty">Ничего не найдено</div>';
+
+  $("resultcount").textContent=arr.length.toLocaleString("ru-RU")+" материалов";
+}
+
+function openResults(section,title){
+  activeSection=section;
+  $("home").classList.add("hide");
+  $("results").classList.remove("hide");
+  $("resulttitle").textContent=title||labels[section]||"Материалы";
+  renderResults();
+}
+
+function showHome(){
+  activeSection="ALL";
+  $("home").classList.remove("hide");
+  $("results").classList.add("hide");
+  $("search").value="";
+  renderTiles();
+  renderRecent();
+}
+
+function renderRecent(){
+  const arr=history
+    .map(id=>db.cards.find(c=>String(c.id)===String(id)))
+    .filter(Boolean)
+    .slice(0,4);
+
+  $("recent").innerHTML=arr.map(cardButton).join("")
+    ||'<div class="empty">Открытые материалы появятся здесь</div>';
+}
+
+function renderQuick(){
+  const arr=[
+    ["ALL","Все"],
+    ["MEDICINE","Медицина"],
+    ["AMMUNITION","Боеприпасы"],
+    ["ATGM","ПТРК"],
+    ["SVO","Материалы по СВО"]
+  ];
+
+  $("quick").innerHTML=arr.map(([s,t])=>
+    `<button class="pill ${activeSection===s?"active":""}" data-section="${s}">${t}</button>`
+  ).join("");
+}
+
+function showHistory(){
+  $("home").classList.add("hide");
+  $("results").classList.remove("hide");
+  $("resulttitle").textContent="История просмотров";
+
+  const arr=history
+    .map(id=>db.cards.find(c=>String(c.id)===String(id)))
+    .filter(Boolean);
+
+  $("cards").innerHTML=arr.map(cardButton).join("")
+    ||'<div class="empty">История пока пуста</div>';
+
+  $("resultcount").textContent=arr.length+" материалов";
+}
+
+function closeCard(){
+  $("overlay").classList.remove("show");
+}
+
+function showLoadError(message){
+  $("tiles").innerHTML=`<div class="empty">${esc(message)}</div>`;
+  $("count").textContent="База не загружена";
+}
+
+/* Загружаем локальную базу справочника */
+async function loadDatabase(){
+  try{
+    const response=await fetch("data.json");
+    if(!response.ok){
+      throw new Error("HTTP "+response.status);
+    }
+
+    const data=await response.json();
+
+    if(!data||!Array.isArray(data.cards)){
+      throw new Error("Неверный формат data.json");
+    }
+
+    db=data;
+    renderTiles();
+    renderRecent();
+    renderQuick();
+  }catch(error){
+    console.error("Ошибка загрузки базы:",error);
+    showLoadError("Не удалось загрузить базу справочника. Проверьте файл data.json и настройки Android-приложения.");
+  }
+}
+
+/* Общая обработка нажатий, включая мобильный экран */
+document.addEventListener("click",e=>{
+  const card=e.target.closest("[data-card]");
+  if(card){
+    showCard(card.dataset.card);
+    return;
+  }
+
+  const star=e.target.closest("[data-star]");
+  if(star){
+    e.stopPropagation();
+    toggleFav(star.dataset.star);
+    return;
+  }
+
+  const tile=e.target.closest("[data-section]");
+  if(tile){
+    const s=tile.dataset.section;
+    activeSection=s;
+    renderQuick();
+    openResults(
+      s,
+      s==="ALL"?"Все материалы":
+      s==="FAV"?"Избранное":
+      labels[s]||"Материалы"
+    );
+    return;
+  }
+
+  const tab=e.target.closest("[data-tab]");
+  if(tab){
+    document.querySelectorAll(".nav button").forEach(b=>
+      b.classList.toggle("active",b===tab)
+    );
+
+    const t=tab.dataset.tab;
+
+    if(t==="home"){
+      showHome();
+    }else if(t==="categories"){
+      showHome();
+      $("tiles").scrollIntoView({behavior:"smooth",block:"start"});
+    }else if(t==="search"){
+      openResults(activeSection,"Результаты поиска");
+      $("search").focus();
+    }else if(t==="favorites"){
+      $("search").value="";
+      openResults("FAV","Избранное");
+    }else if(t==="history"){
+      showHistory();
+    }
+
+    renderQuick();
+  }
+});
+
+$("search").addEventListener("input",()=>{
+  if(!$("results").classList.contains("hide")){
+    renderResults();
+  }else if($("search").value.trim()){
+    openResults("ALL","Результаты поиска");
+  }
+});
+
+$("filter").addEventListener("click",()=>{
+  $("search").value="";
+  openResults("ALL","Все материалы");
+});
+
+$("close").addEventListener("click",closeCard);
+
+$("overlay").addEventListener("click",e=>{
+  if(e.target===$("overlay"))closeCard();
+});
+
+$("dfav").addEventListener("click",()=>{
+  if(currentCard)toggleFav(currentCard.id);
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")closeCard();
+});
+
+loadDatabase();
+</script>
+</body>
+</html>
