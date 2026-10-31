@@ -168,11 +168,12 @@ const $=id=>document.getElementById(id);
 /* Normalize image paths from the local JSON database. */
 function assetPath(path){
   if(!path)return '';
-  let value=String(path).trim().replace(/\\\\/g,'/');
-  if(/^https?:\\/\\//i.test(value)||value.startsWith('data:'))return value;
-  value=value.replace(/^\\.\\//,'').replace(/^\\/+/, '');
-  value=value.replace(/^www\\//i,'');
-  if(value.startsWith('assets/'))return value;
+  let value=String(path).trim().split('\\').join('/');
+  if(value.indexOf('http://')===0||value.indexOf('https://')===0||value.indexOf('data:')===0)return value;
+  while(value.indexOf('./')===0)value=value.slice(2);
+  while(value.indexOf('/')===0)value=value.slice(1);
+  if(value.indexOf('www/')===0)value=value.slice(4);
+  if(value.indexOf('assets/')===0)return value;
   return 'assets/'+value;
 }
 
