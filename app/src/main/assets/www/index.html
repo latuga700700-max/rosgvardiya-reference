@@ -165,11 +165,23 @@ let currentCard=null;
 
 const $=id=>document.getElementById(id);
 
-/* Исправленный путь к изображениям */
+/* Normalize image paths from the local JSON database. */
 function assetPath(path){
-  return path ? "assets/"+String(path).replace(/^\/+/, "") : "";
+  if(!path)return '';
+  let value=String(path).trim().replace(/\\\\/g,'/');
+  if(/^https?:\\/\\//i.test(value)||value.startsWith('data:'))return value;
+  value=value.replace(/^\\.\\//,'').replace(/^\\/+/, '');
+  value=value.replace(/^www\\//i,'');
+  if(value.startsWith('assets/'))return value;
+  return 'assets/'+value;
 }
 
+function cardImagePath(card){
+  if(!card)return '';
+  const candidates=[card.thumbnailPath,card.imagePath,card.image_path,card.thumbnail,card.imageUrl,card.image_url,card.image];
+  const value=candidates.find(item=>typeof item==='string'&&item.trim());
+  return assetPath(value);
+}
 function esc(s){
   return String(s??"").replace(/[&<>"']/g,c=>({
     "&":"&amp;",
@@ -196,7 +208,7 @@ function save(){
 
 function cardButton(c){
   return `<button class="cardrow" data-card="${esc(c.id)}">
-    <img class="thumb" loading="lazy" src="${esc(assetPath(c.thumbnailPath))}" onerror="this.style.visibility='hidden'">
+    <img class="thumb" loading="lazy" src="${esc(cardImagePath(c))}" onerror="this.style.visibility='hidden'">
     <span class="cardcopy">
       <strong>${esc(c.title)}</strong>
       <small>${esc(short(c.summary))}</small>
@@ -218,7 +230,7 @@ function showCard(id){
   $("dsummary").textContent=c.summary||"";
   $("dbody").textContent=c.body||"";
 
-  const path=assetPath(c.thumbnailPath);
+  const path=cardImagePath(c);
   $("dimg").onerror=()=>{$("dimg").classList.add("hide");};
   if(path){
     $("dimg").src=path;
@@ -268,7 +280,7 @@ function renderTiles(){
 
   $("tiles").innerHTML=arr.map(x=>{
     const first=db.cards.find(c=>c.section===x.id&&c.thumbnailPath);
-    const bg=first?`url('${assetPath(first.thumbnailPath)}')`:"none";
+    const bg=first?`url('${cardImagePath(first)}')`:"none";
 
     return `<button class="tile" data-section="${x.id}" style="--tile-image:${bg}">
       <span class="ico">${x.ico}</span>
